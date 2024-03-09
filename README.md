@@ -94,7 +94,7 @@ This should take about 30 minutes to set up. Could take longer depending on how 
        - You don't need to sign up for a Razor account
     1. Open "Auto Login" on the desktop and run "Setup Auto Login"
     1. Run "Setup Auto Shutdown" on the desktop. Choose a reasonable time — I use 30 minutes
-    1. Open Google Chrome and download the latest Google Cloud NVIDIA driver from here: https://cloud.google.com/compute/docs/gpus/grid-drivers-table#windows_drivers
+    1. Open Google Chrome and download the latest Google Cloud NVIDIA driver from here: https://www.nvidia.com/download/index.aspx
     1. Run the downloaded `.exe` to install the driver
 1. Set up VNC
     1. From the start menu, search "tightvnc" and run "TightVNC Service - Control Interface"

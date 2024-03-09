@@ -1,28 +1,28 @@
 locals {
   project_id = "<REPLACE ME WITH YOUR PROJECT ID>"
 
-  region = "us-west1"
-  zone = "us-west1-b"
+  region = "eu-west1"
+  zone = "eu-west1-d"
   vnc_ingress_rule_name = "vnc-ingress"
   parsec_ingress_rule_name = "parsec-ingress"
   make_preemptible = false
 }
 
 provider "google" {
-  credentials = file("../account.json")
+  credentials = file("./account.json")
   project     = local.project_id
   region      = local.region
 }
 
-data "google_compute_image" "windows_server_2019_desktop" {
-  family  = "windows-2019"
+data "google_compute_image" "windows_server_2022_desktop" {
+  family  = "windows-2022"
   project = "windows-cloud"
 }
 
 resource "google_compute_instance" "parsec-1" {
   name         = "parsec-1"
   zone         = local.zone
-  machine_type = "n1-standard-8"
+  machine_type = "n1-standard-4"
 
   tags = [
     "https-server",
@@ -32,9 +32,9 @@ resource "google_compute_instance" "parsec-1" {
 
   boot_disk {
     initialize_params {
-      image = data.google_compute_image.windows_server_2019_desktop.self_link
+      image = data.google_compute_image.windows_server_2022_desktop.self_link
       size = 100
-      type = "pd-standard"  // change to SSD if you want, but costs 4x more
+      type = "pd-ssd"
     }
   }
 

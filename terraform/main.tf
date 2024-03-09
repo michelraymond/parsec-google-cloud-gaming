@@ -1,8 +1,8 @@
 locals {
   project_id = "<REPLACE ME WITH YOUR PROJECT ID>"
 
-  region = "eu-west1"
-  zone = "eu-west1-d"
+  region = "europe-west1"
+  zone = "europe-west1-d"
   vnc_ingress_rule_name = "vnc-ingress"
   parsec_ingress_rule_name = "parsec-ingress"
   make_preemptible = false

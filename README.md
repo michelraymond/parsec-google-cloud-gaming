@@ -92,41 +92,13 @@ This should take about 30 minutes to set up. Could take longer depending on how 
 1. Once you're on the remote desktop via RDP, let's set up Parsec. **This step takes a while.**
     1. Follow steps 3 and 4 at https://github.com/jamesstringerparsec/Parsec-Cloud-Preparation-Tool
        - You don't need to sign up for a Razor account
-    1. Open "Auto Login" on the desktop and run "Setup Auto Login"
-    1. Run "Setup Auto Shutdown" on the desktop. Choose a reasonable time — I use 30 minutes
+    1. To Setup Auto Shutdown just follow this: https://www.makeuseof.com/windows-10-11-shutdown-idle/ and change task trigger as "on idle"
     1. Open Google Chrome and download the latest Google Cloud NVIDIA driver from here: https://cloud.google.com/compute/docs/gpus/install-grid-drivers
-    1. Run the downloaded `.exe` to install the driver
-1. Set up VNC
-    1. From the start menu, search "tightvnc" and run "TightVNC Service - Control Interface"
-         ![k](https://dl.dropboxusercontent.com/s/f61rxic04000e5d/Screenshot%202020-03-25%2021.07.27.png?dl=0)
-    1. In the bottom-right icon tray, click the TightVNC icon
-         ![l](https://dl.dropboxusercontent.com/s/qp5ce5w8y37aydz/Screenshot%202020-03-25%2021.07.44.png?dl=0)
-    1. Use password `4ubg9sde` to unlock the settings
-    1. **Important:** Change the VNC password to be your Windows password
-1. Restart the host and connect with VNC.
-    1. Restart Windows using the start menu
-    1. **Wait 2 minutes for your host to reboot**
-    1. On your Mac, open VNC Viewer, installed in Step 6
-    1. Copy the External IP address of your cloud machine from the info page on the Google Cloud console
-        ![m](https://dl.dropboxusercontent.com/s/1b8gg1c6k2o8l4a/Screenshot%202020-03-25%2021.12.50.png?dl=0)
-    1. Paste the IP into VNC Viewer to connect to your machine. The password will be your Windows password which you just set
-    1. You should be connected to the host via VNC now!
+    1. Run the downloaded `.exe` to install the driver, maybe use older version if latest won't work
+
 1. Last bit of Parsec setup. Home stretch!
     1. From VNC, open Parsec and sign in
-    1. Go to Settings. Scroll to the bottom and click the small text saying `edit the configuration file directly`. Paste these settings and save the file.
-    
-       **NOTE:** Adjust the screen resolution as necessary. These values are tuned for a 15" Macbook Pro.
-    
-       ```
-       app_run_level = 3
-       network_server_start_port = 8000
-       client_decoder_h265 = true
-       server_resolution_x = 2880
-       server_resolution_y = 1800
-       encoder_h265 = 1
-       ```
-     
-    1. From the icon tray in the bottom-right of the desktop, right click on Parsec and restart it.
+    1. Go to Settings. Scroll to the bottom and check H265 (same on client)
     1. Right click the desktop and open "Display Settings"
     1. Click on Display 2 and check the box that says "Make this my main display"
     1. Set the scaling factor to 150%.

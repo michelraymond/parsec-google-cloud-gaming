@@ -90,7 +90,7 @@ This should take about 30 minutes to set up. Could take longer depending on how 
     1. Click "RDP" near the top of the instance info page
     1. Follow Google's instructions until you get to the remote desktop — the Chrome extension will work just fine
 1. Once you're on the remote desktop via RDP, let's set up Parsec. **This step takes a while.**
-    1. Follow steps 3 and 4 at https://github.com/jamesstringerparsec/Parsec-Cloud-Preparation-Tool
+    1. Follow steps 3 and 4 at https://github.com/kaktus42/Parsec-Cloud-Preparation-Tool
        - You don't need to sign up for a Razor account
     1. To Setup Auto Shutdown just follow this: https://www.makeuseof.com/windows-10-11-shutdown-idle/ and change task trigger as "on idle"
     1. Open Google Chrome and download the latest Google Cloud NVIDIA driver from here: https://cloud.google.com/compute/docs/gpus/install-grid-drivers

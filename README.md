@@ -96,7 +96,7 @@ This should take about 30 minutes to set up. Could take longer depending on how 
     4. Close the windows remote desktop app.
 1. On your host, open Parsec and connect to your cloud machine.
     1. If the display isn't right, right click the desktop and open "Display Settings"
-    1. Set the scaling factor to 150%, and adjust the resolution if needed.
+    1. Adjust the scaling factor, resolution, and other parameters if needed.
     2. **Done!!!**
 
 At this point, you can install Steam and whatever games you want. Voila!

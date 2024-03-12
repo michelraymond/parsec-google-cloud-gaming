@@ -54,6 +54,10 @@ resource "google_compute_instance" "parsec-1" {
     }
   }
 
+  metadata = {
+    enable-windows-ssh = "TRUE"
+  }
+
   scheduling {
     preemptible = local.make_preemptible
     automatic_restart = false

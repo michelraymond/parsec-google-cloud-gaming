@@ -3,7 +3,6 @@ locals {
 
   region = "europe-west1"
   zone = "europe-west1-d"
-  vnc_ingress_rule_name = "vnc-ingress"
   parsec_ingress_rule_name = "parsec-ingress"
   make_preemptible = false
 }
@@ -26,7 +25,6 @@ resource "google_compute_instance" "parsec-1" {
 
   tags = [
     "https-server",
-    local.vnc_ingress_rule_name,
     local.parsec_ingress_rule_name,
   ]
 
@@ -63,21 +61,6 @@ resource "google_compute_instance" "parsec-1" {
     automatic_restart = false
     on_host_maintenance = "TERMINATE"
   }
-}
-
-resource "google_compute_firewall" "vnc-ingress" {
-  name    = local.vnc_ingress_rule_name
-  network = "default"
-
-  // TODO: make this more secure by specifying only my IP
-  source_ranges = ["0.0.0.0/0"]
-
-  allow {
-    protocol = "tcp"
-    ports    = ["5900"]
-  }
-
-  target_tags = [local.vnc_ingress_rule_name]
 }
 
 // https://support.parsecgaming.com/hc/en-us/articles/115002701631-Required-Dependencies-To-Set-Up-Your-Own-Cloud-Gaming-PC-Without-Parsec-Templates

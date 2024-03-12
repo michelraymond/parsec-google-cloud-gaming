@@ -35,7 +35,7 @@ This should take about 30 minutes to set up. Could take longer depending on how 
       Wait for this message to go away — this should take a few minutes.
    1. Click `Create` __but don't do anything else__. Move on to the next step.
 1. Request an increase to your GPU quota. We need to ask Google Cloud to let us create a machine with a GPU attached.
-   1. On the "create an instance" page, click on "GPUs", google should prompt you to upgrade your free account, click on upgrade to unlock it (beware that this will allow you account to spend more than the free 300€).
+   1. On the "create an instance" page, click on "GPUs", google should prompt you to upgrade your free account, click on upgrade to unlock it (beware that this will enable your account to spend more than the free 300€).
    2. Now on the same page, select the "nvidia tesla p100" gpu, google should prompt you with a "You might not have enough quota for this VM", click on "request quota adjustment" to increase your quota.
    1. Google now has to approve your quota increase. They'll send you an email when they confirm. This may take a while, but in practice it takes less than an hour. Move on to the next step while you wait.
 

@@ -86,7 +86,7 @@ This should take about 30 minutes to set up. Could take longer depending on how 
     1. Follow steps 3 and 4 at https://github.com/kaktus42/Parsec-Cloud-Preparation-Tool (don't install the GPU driver with the program, you will install it below)
     1. To Setup Auto Shutdown with the task scheduler just follow this: https://www.makeuseof.com/windows-10-11-shutdown-idle/ just change task trigger as "on idle" (the built-in auto shutdown shortcut on desktop doesn't work)
     1. Open Google Chrome and download the Google Cloud NVIDIA driver from here: https://cloud.google.com/compute/docs/gpus/grid-drivers-table#windows_drivers
-    1. Run the downloaded `.exe` to install the driver, maybe use older version if latest won't work (I used the 538.33 since the 551.61 wasn't working)
+    1. Run the downloaded `.exe` to install the driver, maybe use an older version if the latest don't work (I used the 538.33 since the 551.61 wasn't working)
 
 1. Last bit of setup. Home stretch!
     1. From the windows remote desktop app, open Parsec and sign in

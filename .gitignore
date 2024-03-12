@@ -4,3 +4,4 @@
 
 # IMPORTANT ignore service account json
 *.json
+terraform/*.json

@@ -6,7 +6,7 @@ This repo sets you up to play games like [Doom Eternal](https://store.steampower
 
 We just need to set up two things:
 
-- [A Parsec account](https://parsecgaming.com/). This lets us stream the screen from the server at super low latency. It's like [Google Stadia](https://store.google.com/product/stadia?gclid=CjwKCAjwguzzBRBiEiwAgU0FT7GirMrN5XiJOHrRMcFNXx6Y1a3BGxoZ2mX1wEKSO5e-3urfE4NeoxoCwd8QAvD_BwE) but better, in my humble opinion.
+- [A Parsec account](https://parsec.app/). This lets us stream the screen from the server at super low latency. It's like [Google Stadia](https://store.google.com/product/stadia?gclid=CjwKCAjwguzzBRBiEiwAgU0FT7GirMrN5XiJOHrRMcFNXx6Y1a3BGxoZ2mX1wEKSO5e-3urfE4NeoxoCwd8QAvD_BwE) but better, in my humble opinion.
 - A Google Cloud virtual machine with a [Telsa P100 GPU](https://www.microway.com/knowledge-center-articles/comparison-of-nvidia-geforce-gpus-and-nvidia-tesla-gpus/) running Windows Server 2019
   - If you haven't signed up for Google Cloud before, you get **$300 in credits for free!**
   - The virtual machine **costs about $1.30/hour** to run. Don't worry about getting overcharged — we'll set up your machine to shut down automatically when you're done playing
@@ -35,23 +35,12 @@ This should take about 30 minutes to set up. Could take longer depending on how 
       Wait for this message to go away — this should take a few minutes.
    1. Click `Create` __but don't do anything else__. Move on to the next step.
 1. Request an increase to your GPU quota. We need to ask Google Cloud to let us create a machine with a GPU attached.
-   1. In the search bar up top, search `all quotas` and click the result
-        ![c](https://dl.dropboxusercontent.com/s/zv6wwj4narkxr1l/Screenshot%202020-03-25%2020.34.11.png?dl=0)
-   1. Under the dropdowns, you'll see a banner asking you to upgrade your account. Once again, **make sure that your active project is the `Parsec` project.** If it is, click "Upgrade Account" (twice), then refresh the page
-        ![d](https://dl.dropboxusercontent.com/s/4sj1brjrw158i40/Screenshot%202020-03-25%2020.42.21.png?dl=0)
-   1. Click the dropdown for `Metrics` and click `None` to deselect everything.
-   1. Search `GPUs all` and select the only option
-       ![e](https://dl.dropboxusercontent.com/s/75ffmx4b909dtw3/Screenshot%202020-03-25%2020.40.45.png?dl=0)
-   1. Click the checkbox on the only result in the list, then click "Edit Quotas" at the top of the page
-       ![f](https://dl.dropboxusercontent.com/s/l75j4wqeqcjy608/Screenshot%202020-03-25%2020.43.49.png?dl=0)
-   1. In the right-side drawer:
-      - Fill out your info and click "Next"
-      - Request a new quota of `1` (up from zero) and provide a request description — be creative 🤷‍♂️ 
-      - Click "Done" on the **small box first**, and then click "Submit Request"
+   1. On the "create an instance" page, click on "GPUs", google should prompt you to upgrade your free account, click on upgrade to unlock it (beware that this will allow you account to spend more than the free 300€).
+   2. Now on the same page, select the "nvidia tesla p100" gpu, google should prompt you with a "You might not have enough quota for this VM", click on "request quota adjustment" to increase your quota.
    1. Google now has to approve your quota increase. They'll send you an email when they confirm. This may take a while, but in practice it takes less than an hour. Move on to the next step while you wait.
 
-1. [Download and install Parsec](https://parsecgaming.com/). Open Parsec and make an account. You'll eventually need to sign in on the cloud machine as well, so **remember your username+password**!
-1. [Download and install VNC Viewer](https://www.realvnc.com/en/connect/download/viewer/). You will this later to set up GPU and display settings using remote desktop on your cloud machine.
+1. [Download and install Parsec](https://parsec.app/). Open Parsec and make an account. You'll eventually need to sign in on the cloud machine as well, so **remember your username+password**!
+    1. Go the the settings of Parsec and disable Vsync, and enable H265.
 1. Download the default Service Account key. This will give Terraform permission to create your machine later in step 9.
     1. [Go back to the Google Cloud console](https://console.cloud.google.com/)
     1. Search `credentials` at the top and click "APIs & Services"
@@ -60,7 +49,7 @@ This should take about 30 minutes to set up. Could take longer depending on how 
     1. Under the "Service Accounts" section, click the one named "Compute Engine default service account"
         ![h](https://dl.dropboxusercontent.com/s/uv33vzp4a6uz0h4/Screenshot%202020-03-25%2020.50.02.png?dl=0)
     1. Click "Create Key" at the bottom, choose JSON
-    1. Save the key as `account.json` to root of this repo
+    1. Save the key as `account.json`.
 1. Wait until Google Cloud approves your GPU quota increase from step 4.
 1. Create the virtual machine. You'll need to open the Terminal for this step.
 
@@ -68,19 +57,21 @@ This should take about 30 minutes to set up. Could take longer depending on how 
    1. In the Google Cloud console, copy your project ID from the dropdown at the top.
         ![](https://dl.dropboxusercontent.com/s/1i3u6zdj2y3vuqj/Screenshot%202020-03-28%2018.26.03.png?dl=0)
         ![](https://dl.dropboxusercontent.com/s/m0u54c7wslcs9ji/Screenshot%202020-03-28%2018.21.26.png?dl=0)
-   2. Edit the file `terraform/main.tf` and change the placeholder at the top with your project ID.
+   2. Click on the "activate cloud shell" on the top right of any google cloud page to open a gcp terminal.
    3. Use [Terraform](https://www.terraform.io/) to automatically set up your machine. Open terminal and run the following
     
     ```bash
-    brew install terraform
-    cd <REPLACE ME WITH PATH TO REPO>/terraform
+    git clone https://github.com/michelraymond/parsec-google-cloud-gaming.git
+    cd parsec-google-cloud-gaming/terraform
+    nano main.tf  # change the placeholder at the top with your project ID
+    nano account.json  # copy the content of your account.json
     terraform init
     terraform apply
     ```
     
 1. Set a Windows password
     1. [Go back to the Google Cloud console](https://console.cloud.google.com/)
-    1. Using the search bar up top, search `vm instances` and click the result labeled "Instances"
+    1. Using the search bar up top, search `vm instances` and click the result labeled "VM Instances"
         ![i](https://dl.dropboxusercontent.com/s/0uzkuqcssfim1oa/Screenshot%202020-03-25%2020.36.46.png?dl=0)
     1. Click on your newly created instance called `parsec-1`
     1. Near the top of the page, click "Set Windows password"
@@ -88,25 +79,29 @@ This should take about 30 minutes to set up. Could take longer depending on how 
     1. Follow the instructions and **save the generated password**
 1. Use RDP to connect to Windows VM
     1. Click "RDP" near the top of the instance info page
-    1. Follow Google's instructions until you get to the remote desktop — the Chrome extension will work just fine
+    1. Click on "Download the RDP file if you will be using a third-party client."
+    2. Install the windows remote desktop app from here: https://www.microsoft.com/store/productId/9WZDNCRFJ3PS
+    3. double click on the downloaded file and connect using the windows password above
 1. Once you're on the remote desktop via RDP, let's set up Parsec. **This step takes a while.**
-    1. Follow steps 3 and 4 at https://github.com/kaktus42/Parsec-Cloud-Preparation-Tool
-       - You don't need to sign up for a Razor account
-    1. To Setup Auto Shutdown just follow this: https://www.makeuseof.com/windows-10-11-shutdown-idle/ and change task trigger as "on idle"
-    1. Open Google Chrome and download the latest Google Cloud NVIDIA driver from here: https://cloud.google.com/compute/docs/gpus/install-grid-drivers
-    1. Run the downloaded `.exe` to install the driver, maybe use older version if latest won't work
+    1. Follow steps 3 and 4 at https://github.com/kaktus42/Parsec-Cloud-Preparation-Tool (don't install the GPU driver with the program, you will install it below)
+    1. To Setup Auto Shutdown with the task scheduler just follow this: https://www.makeuseof.com/windows-10-11-shutdown-idle/ just change task trigger as "on idle" (the built-in auto shutdown shortcut on desktop doesn't work)
+    1. Open Google Chrome and download the Google Cloud NVIDIA driver from here: https://cloud.google.com/compute/docs/gpus/grid-drivers-table#windows_drivers
+    1. Run the downloaded `.exe` to install the driver, maybe use older version if latest won't work (I used the 538.33 since the 551.61 wasn't working)
 
-1. Last bit of Parsec setup. Home stretch!
-    1. From VNC, open Parsec and sign in
-    1. Go to Settings. Scroll to the bottom and check H265 (same on client)
-    1. Right click the desktop and open "Display Settings"
-    1. Click on Display 2 and check the box that says "Make this my main display"
-    1. Set the scaling factor to 150%.
-1. On your Mac, open Parsec and connect to your cloud machine. **Done!!!**
+1. Last bit of setup. Home stretch!
+    1. From the windows remote desktop app, open Parsec and sign in
+    1. Go to Settings. Scroll to the bottom and check H265 (same as client)
+    2. If needed go to the windows language settings to change the keyboard layout (US qwerty by default)
+    3. You'll need to type your login password with Parsec, if the google generated one is too complicated, you can change it by going in the "sign in options" page of the windows settings. Note that changing the windows password will make you unable to reconnect with RDP. If you need to reconnect using RDP you'll have to reset your windows password using the "Set windows password" button as above.
+    4. Close the windows remote desktop app.
+1. On your host, open Parsec and connect to your cloud machine.
+    1. If the display isn't right, right click the desktop and open "Display Settings"
+    1. Set the scaling factor to 150%, and adjust the resolution if needed.
+    2. **Done!!!**
 
 At this point, you can install Steam and whatever games you want. Voila!
 
-**Don't forget to turn off your machine when you're not using it, or you'll be charged!** Google Cloud charges by the second.
+**Don't forget to turn off your machine when you're not using it, or you'll be charged!** Google Cloud charges by the second. You can check how much your instance cost you per day by going to the reports page of the billing section https://console.cloud.google.com/billing/ . If you still have free credits, uncheck the "Promotions and others" on the right to see the graphic.
 
 ----
 

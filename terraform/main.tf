@@ -2,7 +2,7 @@ locals {
   project_id = "<REPLACE ME WITH YOUR PROJECT ID>"
 
   region = "europe-west1"
-  zone = "europe-west1-d"
+  zone = "europe-west1-b"
   parsec_ingress_rule_name = "parsec-ingress"
   make_preemptible = false
 }
@@ -19,10 +19,10 @@ data "google_compute_image" "windows_server_2022_desktop" {
 }
 
 resource "google_compute_instance" "parsec-1" {
-  name         = "parsec-1"
-  zone         = local.zone
-  machine_type = "n1-standard-4"
-
+  name             = "parsec-1"
+  zone             = local.zone
+  machine_type     = "n1-standard-4"
+  min_cpu_platform = "Intel Skylake"
   tags = [
     "https-server",
     local.parsec_ingress_rule_name,

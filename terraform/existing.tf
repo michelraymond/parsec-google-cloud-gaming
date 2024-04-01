@@ -1,7 +1,7 @@
 locals {
   project_id = "<REPLACE ME WITH YOUR PROJECT ID>"
+  image_name = "parsec-image"
   disk_size = REPLACE_WITH_DISK_SIZE
-
   region = "europe-west1"
   zone = "europe-west1-b"
   parsec_ingress_rule_name = "parsec-ingress"
@@ -15,7 +15,7 @@ provider "google" {
 }
 
 data "google_compute_image" "windows_byol" {
-  name  = "parsec-image"
+  name  = local.image_name
   project = local.project_id
 }
 

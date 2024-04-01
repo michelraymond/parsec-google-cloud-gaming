@@ -21,7 +21,7 @@ data "google_compute_image" "windows_server_2022_desktop" {
 resource "google_compute_instance" "parsec-1" {
   name             = "parsec-1"
   zone             = local.zone
-  machine_type     = "n1-standard-4"
+  machine_type     = "n1-standard-8"
   min_cpu_platform = "Intel Skylake"
   tags = [
     "https-server",
@@ -54,6 +54,7 @@ resource "google_compute_instance" "parsec-1" {
 
   metadata = {
     enable-windows-ssh = "TRUE"
+    sysprep-specialize-script-cmd = "googet -noconfirm=true install google-compute-engine-ssh"
   }
 
   scheduling {

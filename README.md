@@ -69,6 +69,9 @@ This should take about 30 minutes to set up. Could take longer depending on how 
     terraform apply
     ```
     
+   3. If you want to use another OS than windows server you can alternatively build your image on local first (using microsoft hyper-v or vmware or equivalent), install parsec and everything needed (steps 11-12) on it, and upload the image on gcp on the following page: https://console.cloud.google.com/compute/imagesAdd
+   4. You will then have to edit and run the `existing.tf` file instead of the `main.tf` with the image you've created, connect with parsec, install the gpu driver (you can't install it on local) and you'll be done.
+    
 1. Set a Windows password
     1. [Go back to the Google Cloud console](https://console.cloud.google.com/)
     1. Using the search bar up top, search `vm instances` and click the result labeled "VM Instances"

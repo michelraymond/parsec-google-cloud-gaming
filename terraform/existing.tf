@@ -2,8 +2,8 @@ locals {
   project_id = "<REPLACE ME WITH YOUR PROJECT ID>"
   image_name = "parsec-image"
   disk_size = REPLACE_WITH_DISK_SIZE
-  region = "europe-west1"
-  zone = "europe-west1-b"
+  region = "europe-west4"
+  zone = "europe-west4-a"
   parsec_ingress_rule_name = "parsec-ingress"
   make_preemptible = false
 }
